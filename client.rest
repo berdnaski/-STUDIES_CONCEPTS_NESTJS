@@ -27,9 +27,7 @@ Content-Type: application/json
 {
   "text": "Atualizar recado",
   "from": "Erick",
-  "to": "Eduarda",
-  "read": false,
-  "date": "2025-05-13T19:24:20.975Z"
+  "to": "Eduarda"
 }
 
 ### Apaga um recado

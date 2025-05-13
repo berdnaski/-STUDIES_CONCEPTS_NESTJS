@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
   Body,
   Controller,
@@ -11,8 +10,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
-import type { CreateMessageDto } from './dto/create-message.dto';
-import type { UpdateMessageDto } from './dto/update-message.dto';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { UpdateMessageDto } from './dto/update-message.dto';
 
 @Controller('messages')
 export class MessagesController {
