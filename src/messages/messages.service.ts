@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import type { Message } from './entities/message.entity';
+import type { CreateMessageDto } from './dto/create-message.dto';
+import type { UpdateMessageDto } from './dto/update-message.dto';
 
 @Injectable()
 export class MessagesService {
@@ -30,19 +29,21 @@ export class MessagesService {
     throw new NotFoundException('Recado não encontrado');
   }
 
-  create(body: any) {
+  create(createMessageDto: CreateMessageDto) {
     this.lastId++;
     const id = this.lastId;
     const newMessage = {
       id,
-      ...body,
+      ...createMessageDto,
+      read: false,
+      date: new Date(),
     };
     this.messages.push(newMessage);
 
     return newMessage;
   }
 
-  update(id: string, body: any) {
+  update(id: string, updateMessageDto: UpdateMessageDto) {
     const messageExistsIndex = this.messages.findIndex(
       (item) => item.id === +id,
     );
@@ -55,7 +56,7 @@ export class MessagesService {
 
     this.messages[messageExistsIndex] = {
       ...messageExists,
-      ...body,
+      ...updateMessageDto,
     };
 
     return this.messages[messageExistsIndex];
