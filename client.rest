@@ -9,3 +9,9 @@ GET {{baseUrl}}/messages/1/
 
 ###
 POST {{baseUrl}}/messages/
+Content-Type: application/json
+
+{
+  "messages": "Este é o recado que estou enviando.",
+  "name": "Erick"
+}
