@@ -1,11 +1,12 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put, Query } from '@nestjs/common';
 
 @Controller('messages')
 export class MessagesController {
   @HttpCode(HttpStatus.OK)
   @Get()
-  findAll() {
-    return 'Essa rota retorna todos os recados';
+  findAll(@Query() pagination: any) {
+    const {limit = 10, offset = 0} = pagination;
+    return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
   }
 
   @Get(':id')

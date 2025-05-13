@@ -3,6 +3,8 @@
 # MESSAGES
 ###
 GET {{baseUrl}}/messages/
+?limit=10
+&offset=0
 
 ###
 GET {{baseUrl}}/messages/1/
