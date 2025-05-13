@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
   Body,
@@ -10,38 +9,38 @@ import {
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
+import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
+  constructor(private readonly messagesService: MessagesService) {}
+
   @HttpCode(HttpStatus.OK)
   @Get()
-  findAll(@Query() pagination: any) {
-    const { limit = 10, offset = 0 } = pagination;
-    return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
+  findAll() {
+    // const { limit = 10, offset = 0 } = pagination;
+    // return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
+    return this.messagesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Essa rota retorn o recado ${id}`;
+    return this.messagesService.findOne(id);
   }
 
   @Post()
   create(@Body() body: any) {
-    return body;
+    return this.messagesService.create(body);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: any) {
-    return {
-      id,
-      ...body,
-    };
+    this.messagesService.update(id, body);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Essa rota APAGA um recado ${id}`;
+    this.messagesService.remove(id);
   }
 }

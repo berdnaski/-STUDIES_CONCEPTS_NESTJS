@@ -3,29 +3,35 @@
 # MESSAGES
 ###
 GET {{baseUrl}}/messages/
-?limit=10
-&offset=0
+# ?limit=10
+# &offset=0
 
 ###
-GET {{baseUrl}}/messages/1/
+GET {{baseUrl}}/messages/2/
 
 ###
 POST {{baseUrl}}/messages/
 Content-Type: application/json
 
 {
-  "messages": "Este é o recado que estou enviando.",
-  "name": "Erick"
+  "text": "4Novo recado",
+  "from": "Erick",
+  "to": "Eduarda",
+  "read": false,
+  "date": "2025-05-13T19:24:20.975Z"
 }
 
 ### Atualiza um reacado
-PATCH {{baseUrl}}/messages/1/
+PATCH {{baseUrl}}/messages/2/
 Content-Type: application/json
 
 {
-  "messages": "Este é o recado que estou enviando.",
-  "update": true
+  "text": "Novo recado",
+  "from": "Erick",
+  "to": "Eduarda",
+  "read": false,
+  "date": "2025-05-13T19:24:20.975Z"
 }
 
 ### Apaga um recado
-DELETE {{baseUrl}}/messages/1/
+DELETE {{baseUrl}}/messages/2/
