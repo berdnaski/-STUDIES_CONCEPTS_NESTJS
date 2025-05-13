@@ -26,7 +26,7 @@ PATCH {{baseUrl}}/messages/2/
 Content-Type: application/json
 
 {
-  "text": "Novo recado",
+  "text": "Atualizar recado",
   "from": "Erick",
   "to": "Eduarda",
   "read": false,

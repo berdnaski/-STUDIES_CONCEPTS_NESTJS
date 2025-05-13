@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import type { Message } from './entities/message.entity';
 
 @Injectable()
@@ -23,7 +23,11 @@ export class MessagesService {
   }
 
   findOne(id: string) {
-    return this.messages.find((item) => item.id === +id);
+    const message = this.messages.find((item) => item.id === +id);
+
+    if (message) return message;
+
+    throw new NotFoundException('Recado não encontrado');
   }
 
   create(body: any) {
@@ -43,13 +47,18 @@ export class MessagesService {
       (item) => item.id === +id,
     );
 
-    if (messageExistsIndex >= 0) {
-      const messageExists = this.messages[messageExistsIndex];
-      this.messages[messageExistsIndex] = {
-        ...messageExists,
-        ...body,
-      };
+    if (messageExistsIndex < 0) {
+      throw new NotFoundException();
     }
+
+    const messageExists = this.messages[messageExistsIndex];
+
+    this.messages[messageExistsIndex] = {
+      ...messageExists,
+      ...body,
+    };
+
+    return this.messages[messageExistsIndex];
   }
 
   remove(id: string) {
@@ -57,8 +66,14 @@ export class MessagesService {
       (item) => item.id === +id,
     );
 
-    if (messageExistsIndex >= 0) {
-      this.messages.splice(messageExistsIndex, 1);
+    if (messageExistsIndex < 0) {
+      throw new NotFoundException();
     }
+
+    const message = this.messages[messageExistsIndex];
+
+    this.messages.splice(messageExistsIndex, 1);
+
+    return message;
   }
 }
