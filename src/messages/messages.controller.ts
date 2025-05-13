@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
 
 @Controller('messages')
 export class MessagesController {
@@ -24,5 +24,10 @@ export class MessagesController {
       id,
       ...body
     }
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `Essa rota APAGA um recado ${id}`;
   }
 }
