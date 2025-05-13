@@ -15,3 +15,12 @@ Content-Type: application/json
   "messages": "Este é o recado que estou enviando.",
   "name": "Erick"
 }
+
+### Atualiza um reacado
+PATCH {{baseUrl}}/messages/1/
+Content-Type: application/json
+
+{
+  "messages": "Este é o recado que estou enviando.",
+  "update": true
+}
