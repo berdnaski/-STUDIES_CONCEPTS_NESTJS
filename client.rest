@@ -14,12 +14,11 @@ POST {{baseUrl}}/messages/
 Content-Type: application/json
 
 {
-  "text": "4Novo recado",
+  "text": "Olá Eduarda!",
   "from": "Erick",
-  "to": "Eduarda",
-  "read": false,
-  "date": "2025-05-13T19:24:20.975Z"
+  "to": "Eduarda"
 }
+
 
 ### Atualiza um reacado
 PATCH {{baseUrl}}/messages/2/
