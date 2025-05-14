@@ -30,3 +30,26 @@ Content-Type: application/json
 
 ### Apaga um recado
 DELETE {{baseUrl}}/messages/1/
+
+
+#
+
+
+# Pessoa
+### Lista todas as pessoas
+GET {{baseUrl}}/persons/
+# ?limit=10
+# &offset=0
+
+###
+GET {{baseUrl}}/persons/1/
+
+###
+POST {{baseUrl}}/persons/
+Content-Type: application/json
+
+{
+  "text": "Olá Eduarda!",
+  "from": "Erick",
+  "to": "Eduarda"
+}
