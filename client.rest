@@ -42,14 +42,26 @@ GET {{baseUrl}}/persons/
 # &offset=0
 
 ###
-GET {{baseUrl}}/persons/1/
+GET {{baseUrl}}/persons/11/
 
 ###
 POST {{baseUrl}}/persons/
 Content-Type: application/json
 
 {
-  "text": "Olá Eduarda!",
-  "from": "Erick",
-  "to": "Eduarda"
+  "name": "Erick",
+  "email": "berdnaski1177@gmail.com",
+  "password": "123456"
 }
+
+### Atualiza um reacado
+PATCH {{baseUrl}}/persons/11/
+Content-Type: application/json
+
+{
+  "password": "654321",
+  "nome": "João"
+}
+
+### Apaga um recado
+DELETE {{baseUrl}}/persons/9/
