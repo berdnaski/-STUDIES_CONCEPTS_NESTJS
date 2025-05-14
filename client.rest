@@ -59,8 +59,7 @@ PATCH {{baseUrl}}/persons/11/
 Content-Type: application/json
 
 {
-  "password": "654321",
-  "nome": "João"
+  "password": "123456"
 }
 
 ### Apaga um recado

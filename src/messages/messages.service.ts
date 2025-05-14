@@ -11,17 +11,17 @@ export class MessagesService {
     @InjectRepository(Message)
     private readonly messageRepository: Repository<Message>,
   ) {}
-  private lastId = 1;
-  private messages: Message[] = [
-    {
-      id: 1,
-      text: 'Este é um recado de teste',
-      from: 'Erick',
-      to: 'Eduarda',
-      read: false,
-      date: new Date(),
-    },
-  ];
+  // private lastId = 1;
+  // private messages: Message[] = [
+  //   {
+  //     id: 1,
+  //     text: 'Este é um recado de teste',
+  //     from: 'Erick',
+  //     to: ,
+  //     read: false,
+  //     date: new Date(),
+  //   },
+  // ];
 
   async findAll() {
     const messages = await this.messageRepository.find();
