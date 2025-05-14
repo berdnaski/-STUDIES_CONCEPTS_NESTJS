@@ -43,48 +43,48 @@ export class MessagesService {
     throw new NotFoundException('Recado não encontrado');
   }
 
-  create(createMessageDto: CreateMessageDto) {
-    this.lastId++;
-    const id = this.lastId;
+  async create(createMessageDto: CreateMessageDto) {
     const newMessage = {
-      id,
       ...createMessageDto,
       read: false,
       date: new Date(),
     };
-    this.messages.push(newMessage);
 
-    return newMessage;
+    const message = this.messageRepository.create(newMessage);
+
+    return await this.messageRepository.save(message);
   }
 
-  update(id: string, updateMessageDto: UpdateMessageDto) {
-    const messageExistsIndex = this.messages.findIndex(item => item.id === +id);
-
-    if (messageExistsIndex < 0) {
-      throw new NotFoundException();
-    }
-
-    const messageExists = this.messages[messageExistsIndex];
-
-    this.messages[messageExistsIndex] = {
-      ...messageExists,
-      ...updateMessageDto,
+  async update(id: number, updateMessageDto: UpdateMessageDto) {
+    const partialUpdateMessage = {
+      read: updateMessageDto?.read,
+      text: updateMessageDto?.text,
     };
+    const message = await this.messageRepository.preload({
+      id,
+      ...partialUpdateMessage,
+    });
 
-    return this.messages[messageExistsIndex];
-  }
-
-  remove(id: number) {
-    const messageExistsIndex = this.messages.findIndex(item => item.id === id);
-
-    if (messageExistsIndex < 0) {
+    if (!message) {
       throw new NotFoundException();
     }
 
-    const message = this.messages[messageExistsIndex];
-
-    this.messages.splice(messageExistsIndex, 1);
+    await this.messageRepository.save(message);
 
     return message;
+  }
+
+  async remove(id: number) {
+    const message = await this.messageRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!message) {
+      throw new NotFoundException();
+    }
+
+    return this.messageRepository.remove(message);
   }
 }
