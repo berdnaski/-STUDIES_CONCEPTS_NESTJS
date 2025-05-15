@@ -14,9 +14,9 @@ POST {{baseUrl}}/messages/
 Content-Type: application/json
 
 {
-  "text": "Olá Eduarda!",
-  "from": "Erick",
-  "to": "Eduarda"
+  "text": "De Eduarda para Erick",
+  "fromId": 12,
+  "toId": 11
 }
 
 
@@ -49,8 +49,8 @@ POST {{baseUrl}}/persons/
 Content-Type: application/json
 
 {
-  "name": "Erick",
-  "email": "berdnaski1177@gmail.com",
+  "name": "Eduarda",
+  "email": "eduarda@gmail.com",
   "password": "123456"
 }
 

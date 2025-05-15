@@ -40,18 +40,12 @@ export class PersonsService {
   }
 
   async findAll() {
-    const persons = await this.personRepository.find({
-      order: {
-        id: 'desc',
-      },
-    });
+    const persons = await this.personRepository.find();
 
-    return {
-      persons,
-    };
+    return persons;
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Person> {
     const person = await this.personRepository.findOne({
       where: {
         id,
@@ -62,9 +56,7 @@ export class PersonsService {
       throw new NotFoundException('Pessoa não encontrada.');
     }
 
-    return {
-      person,
-    };
+    return person;
   }
 
   async update(id: number, updatePersonDto: UpdatePersonDto) {
