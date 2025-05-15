@@ -9,7 +9,6 @@ import { tap } from 'rxjs';
 export class TimingConnectionInterceptor implements NestInterceptor {
   async intercept(context: ExecutionContext, next: CallHandler<any>) {
     const startTime = Date.now();
-    console.log('TimingConnectionInterceptor executado. ANTES');
 
     return next.handle().pipe(
       tap(() => {
