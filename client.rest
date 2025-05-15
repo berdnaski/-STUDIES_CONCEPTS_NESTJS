@@ -14,9 +14,9 @@ POST {{baseUrl}}/messages/
 Content-Type: application/json
 
 {
-  "text": "De Eduarda para Erick",
-  "fromId": 12,
-  "toId": 11
+  "text": "De Erick para eduarda",
+  "fromId": 14,
+  "toId": 13
 }
 
 
@@ -25,6 +25,7 @@ PATCH {{baseUrl}}/messages/3/
 Content-Type: application/json
 
 {
+  "text": "blabla",
   "read": true
 }
 
