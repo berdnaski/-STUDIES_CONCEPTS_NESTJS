@@ -9,10 +9,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('messages')
 export class MessagesController {
@@ -20,10 +22,9 @@ export class MessagesController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  findAll() {
-    // const { limit = 10, offset = 0 } = pagination;
+  async findAll(@Query() paginationDto: PaginationDto) {
     // return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
-    return this.messagesService.findAll();
+    return this.messagesService.findAll(paginationDto);
   }
 
   @Get(':id')

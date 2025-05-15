@@ -3,8 +3,8 @@
 # MESSAGES
 ###
 GET {{baseUrl}}/messages/
-# ?limit=10
-# &offset=0
+  ?limit=10
+  &offset=0
 
 ###
 GET {{baseUrl}}/messages/11/
@@ -21,11 +21,10 @@ Content-Type: application/json
 
 
 ### Atualiza um reacado
-PATCH {{baseUrl}}/messages/3/
+PATCH {{baseUrl}}/messages/12/
 Content-Type: application/json
 
 {
-  "text": "blabla",
   "read": true
 }
 
