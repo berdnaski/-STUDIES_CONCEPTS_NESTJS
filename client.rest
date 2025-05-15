@@ -21,7 +21,7 @@ Content-Type: application/json
 
 
 ### Atualiza um reacado
-PATCH {{baseUrl}}/messages/12/
+PATCH {{baseUrl}}/messages/12a/
 Content-Type: application/json
 
 {
