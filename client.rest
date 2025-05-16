@@ -5,7 +5,7 @@
 GET {{baseUrl}}/messages/
 ?limit=10
 &offset=0
-Authorization: Bearer AquiSimVemOToken
+Authorization: Bearer 123456
 ###
 GET {{baseUrl}}/messages/11/
 

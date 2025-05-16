@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseInterceptors,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
@@ -16,6 +17,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { AuthTokenInterceptor } from 'src/common/interceptors/add-token.interceptor';
+import type { Request } from 'express';
 
 @UseInterceptors(AuthTokenInterceptor)
 @Controller('messages')
@@ -24,9 +26,12 @@ export class MessagesController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async findAll(@Query() paginationDto: PaginationDto) {
+  async findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
+    console.log('RecadosController', req['user']);
     // return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
-    return this.messagesService.findAll(paginationDto);
+    const messages = await this.messagesService.findAll(paginationDto);
+
+    return messages;
   }
 
   @Get(':id')
