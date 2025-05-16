@@ -3,9 +3,9 @@
 # MESSAGES
 ###
 GET {{baseUrl}}/messages/
-  ?limit=10
-  &offset=0
-
+?limit=10
+&offset=0
+Authorization: Bearer AquiSimVemOToken
 ###
 GET {{baseUrl}}/messages/11/
 
