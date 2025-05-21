@@ -4,14 +4,12 @@ import { MessagesService } from './messages.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Message } from './entities/message.entity';
 import { PersonsModule } from 'src/persons/persons.module';
-import { MessagesUtils, MessagesUtilsMock } from './messages.utils';
+import { MessagesUtils } from './messages.utils';
+import { RegexFactory } from 'src/common/regex/regex.factory';
 import {
   ONLY_LOWERCASE_LETTERS_REGEX,
   REMOVE_SPACES_REGEX,
-  SERVER_NAME,
-} from 'src/messages/messages.constants';
-import { RemoveSpacesRegex } from 'src/common/regex/remove-spaces.regex';
-import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-letters.regex';
+} from './messages.constants';
 
 @Module({
   imports: [
@@ -21,23 +19,27 @@ import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-lette
   controllers: [MessagesController],
   providers: [
     MessagesService,
+    MessagesUtils,
+    RegexFactory,
     {
-      provide: MessagesUtils,
-      useValue: new MessagesUtilsMock(),
-    },
-    {
-      provide: SERVER_NAME,
-      useValue: 'My Name Is nestJS',
+      provide: REMOVE_SPACES_REGEX,
+
+      useFactory: (regexFactory: RegexFactory) => {
+        return regexFactory.create('RemoveSpacesRegex');
+      },
+
+      inject: [RegexFactory],
     },
     {
       provide: ONLY_LOWERCASE_LETTERS_REGEX,
-      useClass: OnlyLowercaseLettersRegex,
-    },
-    {
-      provide: REMOVE_SPACES_REGEX,
-      useClass: RemoveSpacesRegex,
+
+      useFactory: (regexFactory: RegexFactory) => {
+        return regexFactory.create('OnlyLowercaseLettersRegex');
+      },
+
+      inject: [RegexFactory],
     },
   ],
-  exports: [MessagesUtils, SERVER_NAME],
+  exports: [MessagesUtils],
 })
 export class MessagesModule {}

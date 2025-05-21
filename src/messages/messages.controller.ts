@@ -19,28 +19,24 @@ import { MessagesUtils } from './messages.utils';
 import {
   ONLY_LOWERCASE_LETTERS_REGEX,
   REMOVE_SPACES_REGEX,
-  SERVER_NAME,
-} from 'src/messages/messages.constants';
-import { RegexProtocol } from 'src/common/regex/regex.protocol';
+} from './messages.constants';
+import { RemoveSpacesRegex } from 'src/common/regex/remove-spaces.regex';
+import { OnlyLowercaseLettersRegex } from 'src/common/regex/only-lowercase-letters.regex';
 
 @Controller('messages')
 export class MessagesController {
   constructor(
     private readonly messagesService: MessagesService,
     private readonly messagesUtils: MessagesUtils,
-    @Inject(SERVER_NAME)
-    private readonly serverName: string,
     @Inject(REMOVE_SPACES_REGEX)
-    private readonly removeSpacesRegex: RegexProtocol,
+    private readonly removeSpacesRegex: RemoveSpacesRegex,
     @Inject(ONLY_LOWERCASE_LETTERS_REGEX)
-    private readonly onlyLowercaseLettersRegex: RegexProtocol,
+    private readonly onlyLowercaseLettersRegex: OnlyLowercaseLettersRegex,
   ) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
-    console.log(this.removeSpacesRegex.execute(this.serverName));
-    console.log(this.onlyLowercaseLettersRegex.execute(this.serverName));
     const messages = await this.messagesService.findAll(paginationDto);
 
     return messages;
