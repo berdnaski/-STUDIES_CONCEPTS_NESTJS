@@ -16,9 +16,6 @@ export class TimingConnectionInterceptor implements NestInterceptor {
       tap(() => {
         const finalTime = Date.now();
         const elapsedTime = finalTime - startTime;
-        console.log(
-          `TimingConnectionInterceptor: Levou ${elapsedTime}ms para executar.`,
-        );
       }),
     );
   }

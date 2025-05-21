@@ -3,8 +3,6 @@ import { NextFunction, Request, Response } from 'express';
 
 export class AnotherMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    console.log('AnotherMiddleware:Olá');
-
     const authorization = req.headers.authorization;
 
     if (authorization) {
@@ -17,7 +15,5 @@ export class AnotherMiddleware implements NestMiddleware {
     res.setHeader('X-Custom-Header', 'O valor do cabeçalho');
 
     next();
-
-    console.log('tchau');
   }
 }

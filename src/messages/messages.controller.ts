@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -10,31 +9,23 @@ import {
   Patch,
   Post,
   Query,
-  Req,
-  UseInterceptors,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { AuthTokenInterceptor } from 'src/common/interceptors/add-token.interceptor';
-import type { Request } from 'express';
+import { Request } from 'express';
 
-@UseInterceptors(AuthTokenInterceptor)
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
-    console.log('RecadosController', req['user']);
-    // return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
+  async findAll(@Query() paginationDto: PaginationDto) {
     const messages = await this.messagesService.findAll(paginationDto);
 
-    throw new BadRequestException('MENSAGEM');
-
-    // return messages;
+    return messages;
   }
 
   @Get(':id')
