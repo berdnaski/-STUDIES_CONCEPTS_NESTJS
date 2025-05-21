@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   Patch,
   Post,
@@ -15,17 +16,21 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { MessagesUtils } from './messages.utils';
+import { SERVER_NAME } from 'src/common/constants/server-name.constants';
 
 @Controller('messages')
 export class MessagesController {
   constructor(
     private readonly messagesService: MessagesService,
     private readonly messagesUtils: MessagesUtils,
+    @Inject(SERVER_NAME)
+    private readonly serverName: string,
   ) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(@Query() paginationDto: PaginationDto) {
+    console.log(this.serverName);
     const messages = await this.messagesService.findAll(paginationDto);
 
     return messages;
