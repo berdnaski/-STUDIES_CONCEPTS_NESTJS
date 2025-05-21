@@ -29,7 +29,6 @@ export class MessagesService {
   // ];
 
   async findAll(paginationDto?: PaginationDto) {
-    console.log(this.messagesUtils.invertString('Luiz'));
     const limit = paginationDto?.limit ?? 10;
     const offset = paginationDto?.offset ?? 0;
 
