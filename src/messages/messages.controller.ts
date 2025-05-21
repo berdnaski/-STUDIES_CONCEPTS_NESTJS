@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -31,7 +32,9 @@ export class MessagesController {
     // return `Essa rota retorna todos os recados. Limit=${limit}, Offset=${offset}`;
     const messages = await this.messagesService.findAll(paginationDto);
 
-    return messages;
+    throw new BadRequestException('MENSAGEM');
+
+    // return messages;
   }
 
   @Get(':id')
