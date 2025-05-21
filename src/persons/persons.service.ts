@@ -3,14 +3,15 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  Scope,
 } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Person } from './entities/person.entity';
-import type { Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
-@Injectable()
+@Injectable({ scope: Scope.DEFAULT })
 export class PersonsService {
   constructor(
     @InjectRepository(Person)
