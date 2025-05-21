@@ -14,7 +14,7 @@ import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { Request } from 'express';
+import { ReqDataParam } from 'src/common/params/req-data-param.decorator';
 
 @Controller('messages')
 export class MessagesController {
@@ -22,7 +22,11 @@ export class MessagesController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async findAll(@Query() paginationDto: PaginationDto) {
+  async findAll(
+    @Query() paginationDto: PaginationDto,
+    @ReqDataParam('method') method,
+  ) {
+    console.log(method);
     const messages = await this.messagesService.findAll(paginationDto);
 
     return messages;
