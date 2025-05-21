@@ -15,10 +15,14 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { ReqDataParam } from 'src/common/params/req-data-param.decorator';
+import { MessagesUtils } from './messages.utils';
 
 @Controller('messages')
 export class MessagesController {
-  constructor(private readonly messagesService: MessagesService) {}
+  constructor(
+    private readonly messagesService: MessagesService,
+    private readonly messagesUtils: MessagesUtils,
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
@@ -34,6 +38,7 @@ export class MessagesController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
+    console.log(this.messagesUtils.invertString('Luiz'));
     return this.messagesService.findOne(id);
   }
 

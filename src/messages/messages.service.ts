@@ -3,9 +3,10 @@ import { Message } from './entities/message.entity';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, type DeepPartial } from 'typeorm';
+import { Repository, DeepPartial } from 'typeorm';
 import { PersonsService } from 'src/persons/persons.service';
-import type { PaginationDto } from 'src/common/dto/pagination.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { MessagesUtils } from './messages.utils';
 
 @Injectable()
 export class MessagesService {
@@ -13,6 +14,7 @@ export class MessagesService {
     @InjectRepository(Message)
     private readonly messageRepository: Repository<Message>,
     private readonly personService: PersonsService,
+    private readonly messagesUtils: MessagesUtils,
   ) {}
   // private lastId = 1;
   // private messages: Message[] = [
@@ -27,6 +29,7 @@ export class MessagesService {
   // ];
 
   async findAll(paginationDto?: PaginationDto) {
+    console.log(this.messagesUtils.invertString('Luiz'));
     const limit = paginationDto?.limit ?? 10;
     const offset = paginationDto?.offset ?? 0;
 
