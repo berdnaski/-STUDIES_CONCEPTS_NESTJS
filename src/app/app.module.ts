@@ -4,31 +4,28 @@ import { AppService } from './app.service';
 import { MessagesModule } from 'src/messages/messages.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PersonsModule } from 'src/persons/persons.module';
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from '@hapi/joi';
+import { ConfigModule, ConfigType } from '@nestjs/config';
+import appConfig from './app.config';
+
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        DATABASE_TYPE: Joi.required(),
-        DATABASE_HOST: Joi.required(),
-        DATABASE_PORT: Joi.number().default(5432),
-        DATABASE_USERNAME: Joi.required(),
-        DATABASE_PASSWORD: Joi.required(),
-        DATABASE_DATABASE: Joi.required(),
-        DATABASE_AUTOLOADENTITIES: Joi.number().min(0).max(1).default(0),
-        DATABASE_SYNCHRONIZE: Joi.number().min(0).max(1).default(0),
-      }),
-    }),
-    TypeOrmModule.forRoot({
-      type: process.env.DATABASE_TYPE as 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: parseInt(process.env.DATABASE_PORT || '5432', 10),
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_DATABASE,
-      autoLoadEntities: Boolean(process.env.DATABASE_AUTOLOADENTITIES),
-      synchronize: Boolean(process.env.SYNCHRONIZE),
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule.forFeature(appConfig)],
+      inject: [appConfig.KEY],
+      // eslint-disable-next-line @typescript-eslint/require-await
+      useFactory: async (appConfigurations: ConfigType<typeof appConfig>) => {
+        return {
+          type: appConfigurations.database.type,
+          host: appConfigurations.database.host,
+          port: appConfigurations.database.port,
+          username: appConfigurations.database.username,
+          database: appConfigurations.database.database,
+          password: appConfigurations.database.password,
+          autoLoadEntities: appConfigurations.database.autoLoadEntities,
+          synchronize: appConfigurations.database.synchronize,
+        };
+      },
     }),
     MessagesModule,
     PersonsModule,

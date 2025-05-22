@@ -6,7 +6,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeepPartial } from 'typeorm';
 import { PersonsService } from 'src/persons/persons.service';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { MessagesUtils } from './messages.utils';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class MessagesService {
@@ -14,7 +13,6 @@ export class MessagesService {
     @InjectRepository(Message)
     private readonly messageRepository: Repository<Message>,
     private readonly personService: PersonsService,
-    private readonly messagesUtils: MessagesUtils,
   ) {}
   // private lastId = 1;
   // private messages: Message[] = [
